@@ -16,11 +16,17 @@
 - LoginForm
 - LoginBackground
 
+### DatepickerDemo.jsx
+- Header
+- Datepicker (3x instances with different configs)
+- Footer
+
 ## 🧩 Component Types
 
 ### Global Components (Used across multiple pages)
-- `Header` - Site-wide header
+- `Header` - Site-wide header with navigation
 - `Footer` - Site-wide footer
+- `Datepicker` - Reusable date selection component
 - `AnimatedBackground` - Could be reused
 - `TailwindBadge` - Development indicator
 

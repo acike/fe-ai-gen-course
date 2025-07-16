@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
+import Datepicker from '../../components/shared/Datepicker'
 
 function LoginForm() {
     const [formData, setFormData] = useState({
         email: '',
-        password: ''
+        password: '',
+        selectedDate: null
     })
 
     const handleChange = (e) => {
@@ -14,10 +16,21 @@ function LoginForm() {
         })
     }
 
+    const handleDateChange = (date) => {
+        setFormData({
+            ...formData,
+            selectedDate: date
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('Login attempt:', formData)
+        console.log('Login attempt:', {
+            ...formData,
+            selectedDate: formData.selectedDate ? formData.selectedDate.toLocaleDateString('th-TH') : null
+        })
         // จัดการ login logic ที่นี่
+        alert(`เข้าสู่ระบบสำเร็จ!\nอีเมล: ${formData.email}\nวันที่: ${formData.selectedDate ? formData.selectedDate.toLocaleDateString('th-TH') : 'ไม่ได้เลือก'}`)
     }
 
     return (
@@ -65,6 +78,32 @@ function LoginForm() {
                         className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-web-green-500 focus:border-transparent transition-all duration-200 bg-neutral-50 hover:bg-white"
                         placeholder="กรอกรหัสผ่านของคุณ"
                     />
+                </div>
+
+                {/* Date Input */}
+                <div>
+                    <label htmlFor="date" className="block text-sm font-medium text-neutral-700 mb-2">
+                        กรอกวันที่
+                    </label>
+                    <div className="w-full">
+                        <Datepicker
+                            value={formData.selectedDate}
+                            onChange={handleDateChange}
+                            placeholder="เลือกวันที่"
+                            className="w-full"
+                        />
+                    </div>
+                    {formData.selectedDate && (
+                        <p className="mt-2 text-sm text-neutral-600">
+                            วันที่เลือก: <span className="font-medium text-web-green-600">
+                                {formData.selectedDate.toLocaleDateString('th-TH', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })}
+                            </span>
+                        </p>
+                    )}
                 </div>
 
                 {/* Remember Me & Forgot Password */}
